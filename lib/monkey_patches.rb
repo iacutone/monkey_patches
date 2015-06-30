@@ -16,7 +16,7 @@ module RFC822
     domain = "#{sub_domain}(?:\\x2e#{sub_domain})*"
     local_part = "#{word}(?:\\x2e#{word})*"
     addr_spec = "#{local_part}\\x40#{domain}"
-    pattern = /\A#{addr_spec}\z/
+    pattern = Regexp.new("\A#{addr_spec}\z", nil, "n")
   end
 end
 
@@ -184,7 +184,7 @@ class String
     t.gsub!("\342\200\235", "\"")   # Double quote, left
     t.gsub!("\342\200\242", ".")
     t.gsub!("\342\202\254", "&euro;");   # Euro symbol
-    t.gsub!(/\S\200\S/, " ")             # every other strange character send to the moon
+    t.gsub!((Regexp.new "\S\200\S", nil, "n"), " ") # every other strange character send to the moon
     t.gsub!("\176", "\'")  # single quote
     t.gsub!("\177", "\'")  # single quote
     t.gsub!("\205", "-")		# ISO-Latin1 horizontal elipses (0x85)
@@ -222,7 +222,7 @@ class String
     t.gsub!("\342\200\235", "&rdquo;")   # Double quote, left
     t.gsub!("\342\200\242", ".")
     t.gsub!("\342\202\254", "&euro;");   # Euro symbol
-    t.gsub!(/\S\200\S/, " ")             # every other strange character send to the moon
+    t.gsub!((Regexp.new "\S\200\S", nil, "n"), " ") # every other strange character send to the moon
     t.gsub!("\176", "\'")  # single quote
     t.gsub!("\177", "\'")  # single quote
     t.gsub!("\205", "-")		# ISO-Latin1 horizontal elipses (0x85)
